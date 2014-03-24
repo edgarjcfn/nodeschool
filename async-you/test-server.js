@@ -8,7 +8,15 @@ console.log('listening on port 5000...');
 
 function handleHttp(request, response) {
   var params = url.parse(request.url, true);
-  response.end(params.pathname);
-  console.log('replied with ' + params.pathname);
+  if (params.pathname.indexOf('/error') > -1) {
+  	response.writeHead(500);
+  	response.end('Internal server error');
+  	console.error('Error');
+  }
+  else {
+  	response.writeHead(200, {"Content-Type": "text/html"});
+  	response.end(params.pathname);
+  	console.log('replied with ' + params.pathname);	
+  }
 }
 
