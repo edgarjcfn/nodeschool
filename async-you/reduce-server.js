@@ -14,12 +14,13 @@ function handleHttp(request, response) {
     'three': '3'
   };
 
-  for (var key in numbers) {
-    if (params.pathname.indexOf(key) > -1) {
-      response.end(numbers[key]);
+  if (params.query.number) {
+    for (var key in numbers) {
+      if (key == params.query.number) {
+        response.end(numbers[key]);
+      }
     }
   }
-
-  response.end(params.pathname);
+  response.end();
 }
 
